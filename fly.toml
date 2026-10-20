@@ -1,20 +1,18 @@
-# See https://fly.io/docs/reference/configuration/
-# `app` is set by `fly launch`.
+# fly.toml app configuration file generated for hgjaustin-nightscout on 2026-10-20T01:51:53Z
+#
+# See https://docs.fly.io/reference/configuration for information about how to use this file.
+#
+
 app = "hgjaustin-nightscout"
+
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-
-  [[http_service.checks]]
-    method = "GET"
-    path = "/health"
-    interval = "15s"
-    timeout = "2s"
-    grace_period = "5s"
+  checks = [{ grace_period = '5s', interval = '15s', method = 'GET', path = '/health', timeout = '2s' }]
 
 [[vm]]
-  size = "shared-cpu-1x"
-  memory = "256mb"
+  size = 'shared-cpu-1x'
+  memory = '256mb'
